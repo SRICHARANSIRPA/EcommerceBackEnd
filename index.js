@@ -13,7 +13,7 @@ require("./src/StartUp/db")();
 
 require("./src/StartUp/routes")(app);
 
-//simple test method
+//Listining to port
 app.listen(config.port, () =>
   console.log(`Listening on port ${config.port}...`)
 );
