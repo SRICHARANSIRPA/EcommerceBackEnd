@@ -1,11 +1,7 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
-const postSchema = new mongoose.Schema({
-  Id: {
-    type: mongoose.Schema.Types.ObjectId,
-    auto: true,
-  },
+const productSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -23,17 +19,17 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
 });
-const Post = mongoose.model("Post", postSchema);
+const Product = mongoose.model("Products", productSchema);
 
-function validatePost(post) {
+function validateProduct(product) {
   const schema = {
     title: Joi.string().min(2).max(50).required(),
     Description: Joi.string().min(3).required(),
     image: Joi.string().required(),
     price: Joi.number().min(1).required(),
   };
-  return Joi.validate(post, schema);
+  return Joi.validate(product, schema);
 }
 
-exports.Post = Post;
-exports.validate = validatePost;
+exports.Product = Product;
+exports.validate = validateProduct;

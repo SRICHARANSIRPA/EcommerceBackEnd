@@ -2,6 +2,7 @@ const { Order, validate } = require("../models/Order");
 const asyncfunction = require("../Middlewares/asyncFunction");
 const express = require("express");
 const router = express.Router();
+const isValidObjectId = require("../Middlewares/ValidObjectChecker");
 
 router.get(
   "/",
@@ -31,8 +32,8 @@ router.post(
 
 router.get(
   "/:Id",
+  [isValidObjectId],
   asyncfunction(async (req, res) => {
-    console.log(req.params.Id);
     const order = await Order.findById(req.params.Id);
     if (!order)
       return res.status(404).send("The Oder with the given ID was not found.");

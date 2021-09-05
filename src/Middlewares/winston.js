@@ -20,4 +20,5 @@ const logger = winston.createLogger({
   ],
 });
 
+//singleton
 module.exports = logger;

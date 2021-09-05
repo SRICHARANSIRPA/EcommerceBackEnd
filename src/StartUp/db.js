@@ -2,15 +2,21 @@ const mongoose = require("mongoose");
 const logger = require("../Middlewares/winston");
 const config = require("../Config/config");
 
-const options = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-};
+// const options = {
+//   serverSelectionTimeoutMS: 5000,
+//   socketTimeoutMS: 45000,
+//   // useFindAndModify: false,
+//   // useCreateIndex: true,
+// };
 
-module.exports = function () {
-  //   mongoose.connect(config.connectionUrl, options).then(() => {
-  //     logger.info("Connected to MongoDB...");
-  //   });
+mongoose.connection.on("error", (err) => {
+  logger.error({ message: "failed to Connect to MongoDB...", error: err });
+  console.log({ message: "failed to Connect to MongoDB...", error: err });
+});
+
+module.exports = async function () {
+  mongoose.connect(config.ConnectionString, () => {
+    logger.info("Connected to MongoDB...");
+    console.log("Connected to MongoDB...");
+  });
 };
