@@ -15,7 +15,8 @@ mongoose.connection.on("error", (err) => {
 });
 
 module.exports = async function () {
-  // console.log(config.ConnectionString);
+  console.log(config.ConnectionString);
+  console.log("Hello World");
   mongoose.connect(config.ConnectionString, () => {
     logger.info("Connected to MongoDB...");
     console.log("Connected to MongoDB...");
