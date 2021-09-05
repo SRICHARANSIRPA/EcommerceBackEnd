@@ -3,7 +3,8 @@ const asyncfunction = require("../Middlewares/asyncFunction");
 const express = require("express");
 const router = express.Router();
 const isValidObjectId = require("../Middlewares/ValidObjectChecker");
-
+const Fawn = require("../Middlewares/Fawn");
+const _ = require("lodash");
 router.get(
   "/",
   asyncfunction(async (req, res) => {
@@ -19,14 +20,12 @@ router.post(
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    let order = new Order({
-      TotalProducts: req.body.TotalProducts,
-      UserId: req.body.UserId,
-      GrandTotal: req.body.UserId,
-    });
-    order = await order.save();
+    let order = new Order(
+      _.pick(req.body, ["TotalProducts", "UserId", "GrandTotal"])
+    );
 
-    res.send(order);
+    order = await order.save();
+    res.send(_.pick(order, ["TotalProducts", "UserId", "GrandTotal", "_id"]));
   })
 );
 
@@ -38,7 +37,7 @@ router.get(
     if (!order)
       return res.status(404).send("The Oder with the given ID was not found.");
 
-    res.send(order);
+    res.send(_.pick(order, ["TotalProducts", "UserId", "GrandTotal", "_id"]));
   })
 );
 module.exports = router;

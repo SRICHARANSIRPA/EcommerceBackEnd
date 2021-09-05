@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema({
   //   required: true,
   // },
 });
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model("Orders", orderSchema);
 
 function validateOrder(order) {
   const schema = {

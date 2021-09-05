@@ -4,7 +4,7 @@ const express = require("express");
 //routes
 const products = require("../Controllers/ProductController");
 const orders = require("../Controllers/OrderController");
-
+const users = require("../Controllers/UserController");
 //middlewares
 const error = require("../Middlewares/error");
 
@@ -18,5 +18,6 @@ module.exports = function (app) {
   app.use(cors(corsOptions));
   app.use("/api/Orders", orders);
   app.use("/api/Products", products);
+  app.use("/api/Users", users);
   app.use(error);
 };
